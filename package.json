@@ -9,7 +9,7 @@
 		"typescript": "^5.3.0",
 		"vitest": "^4.0.18"
 	},
-	"main": "index.js",
+	"main": "dist/index.js",
 	"name": "@wopr-network/wopr-plugin-voice-piper-tts",
 	"scripts": {
 		"build": "tsc",
@@ -48,7 +48,6 @@
 		"access": "public"
 	},
 	"files": [
-		"*.js",
-		"*.d.ts"
+		"dist"
 	]
 }
