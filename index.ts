@@ -16,18 +16,19 @@
  * ```
  */
 
+import { spawn } from "node:child_process";
+import { mkdir, unlink, writeFile } from "node:fs/promises";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import type { WOPRPlugin, WOPRPluginContext } from "wopr";
 import type {
-	TTSProvider,
 	TTSOptions,
+	TTSProvider,
 	TTSSynthesisResult,
 	Voice,
 	VoicePluginMetadata,
 } from "wopr/voice";
-import type { WOPRPlugin, WOPRPluginContext } from "wopr";
-import { spawn } from "node:child_process";
-import { writeFile, unlink, mkdir } from "node:fs/promises";
-import { join } from "node:path";
-import { tmpdir } from "node:os";
+import { getWebMCPHandlers, getWebMCPToolDeclarations } from "./webmcp.js";
 
 // =============================================================================
 // Configuration
@@ -433,7 +434,14 @@ class PiperTTSProvider implements TTSProvider {
 
 let provider: PiperTTSProvider | null = null;
 
-const plugin: WOPRPlugin = {
+// Extended with getManifest/getWebMCPHandlers for webui bindPluginLifecycle()
+const plugin: WOPRPlugin & {
+	getManifest(): { webmcpTools: ReturnType<typeof getWebMCPToolDeclarations> };
+	getWebMCPHandlers(): Record<
+		string,
+		(input: Record<string, unknown>) => Promise<unknown>
+	>;
+} = {
 	name: "voice-piper-tts",
 	version: "1.0.0",
 	description: "Local TTS using Piper in Docker",
@@ -460,6 +468,18 @@ const plugin: WOPRPlugin = {
 			await provider.shutdown();
 			provider = null;
 		}
+	},
+
+	getManifest() {
+		return { webmcpTools: getWebMCPToolDeclarations() };
+	},
+
+	getWebMCPHandlers() {
+		if (!provider) {
+			console.warn("[piper-tts] getWebMCPHandlers called before provider initialized");
+			return {};
+		}
+		return getWebMCPHandlers(provider);
 	},
 };
 
