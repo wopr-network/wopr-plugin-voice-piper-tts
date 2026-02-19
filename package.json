@@ -48,6 +48,8 @@
 		"access": "public"
 	},
 	"files": [
-		"dist"
+		"*.js",
+		"*.d.ts",
+		"!tests/"
 	]
 }
