@@ -54,7 +54,7 @@ export function getWebMCPHandlers(
 	provider: PiperProvider,
 ): Record<string, (input: Record<string, unknown>) => Promise<unknown>> {
 	return {
-		"piper-tts.getStatus": async () => ({
+		"piper-tts.getStatus": async (_input) => ({
 			provider: provider.metadata.name,
 			type: provider.metadata.type,
 			version: provider.metadata.version,

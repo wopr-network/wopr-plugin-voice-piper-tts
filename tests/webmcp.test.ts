@@ -1,4 +1,4 @@
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
 import { getWebMCPHandlers, getWebMCPToolDeclarations } from "../webmcp.js";
 
 const mockProvider = {
@@ -67,6 +67,10 @@ describe("getWebMCPToolDeclarations", () => {
 });
 
 describe("getWebMCPHandlers", () => {
+	beforeEach(() => {
+		vi.clearAllMocks();
+	});
+
 	describe("piper-tts.getStatus", () => {
 		it("returns provider info", async () => {
 			const handlers = getWebMCPHandlers(mockProvider);
@@ -76,6 +80,14 @@ describe("getWebMCPHandlers", () => {
 			expect(result.local).toBe(true);
 			expect(result.healthy).toBe(true);
 			expect(result.voiceCount).toBe(4);
+		});
+
+		it("does not expose internal config or private fields", async () => {
+			const handlers = getWebMCPHandlers(mockProvider);
+			const result = (await handlers["piper-tts.getStatus"]({})) as any;
+			expect(result).not.toHaveProperty("config");
+			expect(result).not.toHaveProperty("docker");
+			expect(result).not.toHaveProperty("downloadedModels");
 		});
 	});
 

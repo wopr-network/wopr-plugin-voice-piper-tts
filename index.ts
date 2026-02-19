@@ -475,7 +475,10 @@ const plugin: WOPRPlugin & {
 	},
 
 	getWebMCPHandlers() {
-		if (!provider) return {};
+		if (!provider) {
+			console.warn("[piper-tts] getWebMCPHandlers called before provider initialized");
+			return {};
+		}
 		return getWebMCPHandlers(provider);
 	},
 };
