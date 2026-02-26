@@ -20,6 +20,7 @@ const configSchema: ConfigSchema = {
 			label: "Docker Image",
 			default: "rhasspy/piper:latest",
 			description: "Docker image to use for Piper TTS",
+			setupFlow: "none",
 		},
 		{
 			name: "voice",
@@ -27,6 +28,7 @@ const configSchema: ConfigSchema = {
 			label: "Default Voice",
 			default: "en_US-lessac-medium",
 			description: "Default voice model ID",
+			setupFlow: "none",
 		},
 		{
 			name: "sampleRate",
@@ -34,6 +36,7 @@ const configSchema: ConfigSchema = {
 			label: "Sample Rate (Hz)",
 			default: 22050,
 			description: "Audio sample rate: 16000, 22050, 24000, or 48000",
+			setupFlow: "none",
 		},
 		{
 			name: "speed",
@@ -41,6 +44,7 @@ const configSchema: ConfigSchema = {
 			label: "Speed",
 			default: 1.0,
 			description: "Speed multiplier (0.5–2.0)",
+			setupFlow: "none",
 		},
 		{
 			name: "modelCachePath",
