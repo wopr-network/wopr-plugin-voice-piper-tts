@@ -1,56 +1,59 @@
 {
-  "dependencies": {
-    "dockerode": "^4.0.0"
-  },
-  "description": "Local Piper TTS provider using Piper in Docker",
-  "devDependencies": {
-    "@biomejs/biome": "^2.4.3",
-    "@types/node": "^25.2.3",
-    "typescript": "^5.3.0",
-    "vitest": "^4.0.18"
-  },
-  "main": "dist/index.js",
-  "name": "@wopr-network/wopr-plugin-voice-piper-tts",
-  "scripts": {
-    "build": "tsc",
-    "check": "biome check . --files-ignore-unknown=true",
-    "dev": "tsc -w",
-    "format": "biome format --write . --files-ignore-unknown=true",
-    "lint": "biome check . --files-ignore-unknown=true",
-    "lint:fix": "biome check --fix . --files-ignore-unknown=true",
-    "prepublishOnly": "npm run build",
-    "test": "vitest run"
-  },
-  "type": "module",
-  "version": "1.0.0",
-  "wopr": {
-    "plugin": {
-      "category": "voice",
-      "description": "Local TTS using Piper (Docker)",
-      "install": [
-        {
-          "image": "rhasspy/piper",
-          "kind": "docker",
-          "label": "Pull Piper TTS image",
-          "tag": "latest"
-        }
-      ],
-      "name": "voice-piper-tts",
-      "requires": {
-        "docker": [
-          "rhasspy/piper:latest"
-        ]
-      },
-      "type": "tts"
-    }
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "files": [
-    "dist"
-  ],
-  "release": {
-    "extends": "@wopr-network/semantic-release-config"
-  }
+	"dependencies": {
+		"@wopr-network/plugin-types": "^0.2.1",
+		"dockerode": "^4.0.0",
+		"wopr": "^0.0.5"
+	},
+	"description": "Local Piper TTS provider using Piper in Docker",
+	"devDependencies": {
+		"@biomejs/biome": "^2.4.3",
+		"@types/dockerode": "^4.0.1",
+		"@types/node": "^25.2.3",
+		"typescript": "^5.3.0",
+		"vitest": "^4.0.18"
+	},
+	"main": "dist/index.js",
+	"name": "@wopr-network/wopr-plugin-voice-piper-tts",
+	"scripts": {
+		"build": "tsc",
+		"check": "biome check . --files-ignore-unknown=true",
+		"dev": "tsc -w",
+		"format": "biome format --write . --files-ignore-unknown=true",
+		"lint": "biome check . --files-ignore-unknown=true",
+		"lint:fix": "biome check --fix . --files-ignore-unknown=true",
+		"prepublishOnly": "npm run build",
+		"test": "vitest run"
+	},
+	"type": "module",
+	"version": "1.0.0",
+	"wopr": {
+		"plugin": {
+			"category": "voice",
+			"description": "Local TTS using Piper (Docker)",
+			"install": [
+				{
+					"image": "rhasspy/piper",
+					"kind": "docker",
+					"label": "Pull Piper TTS image",
+					"tag": "latest"
+				}
+			],
+			"name": "voice-piper-tts",
+			"requires": {
+				"docker": [
+					"rhasspy/piper:latest"
+				]
+			},
+			"type": "tts"
+		}
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"files": [
+		"dist"
+	],
+	"release": {
+		"extends": "@wopr-network/semantic-release-config"
+	}
 }

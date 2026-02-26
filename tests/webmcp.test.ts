@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getWebMCPHandlers, getWebMCPToolDeclarations } from "../webmcp.js";
+import { getWebMCPHandlers, getWebMCPToolDeclarations } from "../src/webmcp.js";
 
 const mockProvider = {
 	metadata: {
