@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { getWebMCPHandlers, getWebMCPToolDeclarations } from "../webmcp.js";
+import { getWebMCPHandlers, getWebMCPToolDeclarations } from "../src/webmcp.js";
 
 const mockProvider = {
 	metadata: {
@@ -74,6 +74,7 @@ describe("getWebMCPHandlers", () => {
 	describe("piper-tts.getStatus", () => {
 		it("returns provider info", async () => {
 			const handlers = getWebMCPHandlers(mockProvider);
+			// biome-ignore lint/suspicious/noExplicitAny: testing dynamic handler return shape
 			const result = (await handlers["piper-tts.getStatus"]({})) as any;
 			expect(result.provider).toBe("piper-tts");
 			expect(result.type).toBe("tts");
@@ -84,6 +85,7 @@ describe("getWebMCPHandlers", () => {
 
 		it("does not expose internal config or private fields", async () => {
 			const handlers = getWebMCPHandlers(mockProvider);
+			// biome-ignore lint/suspicious/noExplicitAny: testing dynamic handler return shape
 			const result = (await handlers["piper-tts.getStatus"]({})) as any;
 			expect(result).not.toHaveProperty("config");
 			expect(result).not.toHaveProperty("docker");
@@ -94,6 +96,7 @@ describe("getWebMCPHandlers", () => {
 	describe("piper-tts.listVoices", () => {
 		it("returns all voices when no language filter", async () => {
 			const handlers = getWebMCPHandlers(mockProvider);
+			// biome-ignore lint/suspicious/noExplicitAny: testing dynamic handler return shape
 			const result = (await handlers["piper-tts.listVoices"]({})) as any;
 			expect(result.count).toBe(4);
 			expect(result.voices).toHaveLength(4);
@@ -103,6 +106,7 @@ describe("getWebMCPHandlers", () => {
 			const handlers = getWebMCPHandlers(mockProvider);
 			const result = (await handlers["piper-tts.listVoices"]({
 				language: "en",
+				// biome-ignore lint/suspicious/noExplicitAny: testing dynamic handler return shape
 			})) as any;
 			expect(result.count).toBe(2);
 		});
@@ -111,6 +115,7 @@ describe("getWebMCPHandlers", () => {
 			const handlers = getWebMCPHandlers(mockProvider);
 			const result = (await handlers["piper-tts.listVoices"]({
 				language: "de-DE",
+				// biome-ignore lint/suspicious/noExplicitAny: testing dynamic handler return shape
 			})) as any;
 			expect(result.count).toBe(1);
 			expect(result.voices[0].id).toBe("de_DE-thorsten-medium");
@@ -120,6 +125,7 @@ describe("getWebMCPHandlers", () => {
 			const handlers = getWebMCPHandlers(mockProvider);
 			const result = (await handlers["piper-tts.listVoices"]({
 				language: "ja",
+				// biome-ignore lint/suspicious/noExplicitAny: testing dynamic handler return shape
 			})) as any;
 			expect(result.count).toBe(0);
 		});
