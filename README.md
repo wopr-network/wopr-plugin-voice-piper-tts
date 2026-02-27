@@ -88,8 +88,8 @@ See [Piper voice repository](https://github.com/rhasspy/piper/blob/master/VOICES
 ### From Channel Plugins
 
 ```typescript
-// Get TTS provider
-const tts = ctx.getTTS();
+// Get TTS provider (plugin-types ≥ 0.7)
+const tts = ctx.getExtension("tts");
 
 if (!tts) {
   ctx.log.warn("No TTS provider available");

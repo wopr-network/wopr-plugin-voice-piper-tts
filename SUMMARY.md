@@ -61,7 +61,7 @@ A complete WOPR voice plugin providing local text-to-speech using Piper TTS in D
 
 ### 6. Plugin Registration ✓
 - Implements `WOPRPlugin` interface
-- `init()`: Creates provider and registers via `ctx.registerTTSProvider()`
+- `init()`: Creates provider and registers via `ctx.registerProvider()` (plugin-types ≥ 0.7)
 - `shutdown()`: Cleanup on exit
 - Config loading from WOPR config
 
@@ -92,13 +92,14 @@ Unlike whisper-local (long-running server), Piper uses ephemeral containers:
 ### Plugin Context Methods Used
 
 ```typescript
-// From WOPRPluginContext
-ctx.getConfig<PiperTTSConfig>()  // Get plugin config
-ctx.registerTTSProvider(provider)  // Register as TTS
-ctx.log.info()  // Logging
+// From WOPRPluginContext (plugin-types ≥ 0.7)
+ctx.getConfig<PiperTTSConfig>()      // Get plugin config
+ctx.registerProvider(provider)        // Register as TTS provider
+ctx.registerExtension("tts", provider) // Register for extension consumers
+ctx.log.info()                        // Logging
 
-// From VoiceConsumerContext (channel plugins)
-ctx.getTTS()  // Get active TTS provider
+// From channel plugins consuming the extension
+ctx.getExtension("tts")  // Get active TTS provider
 ```
 
 ### Dependencies
@@ -117,7 +118,7 @@ pnpm build
 # Test in WOPR
 # 1. Configure plugin in WOPR config
 # 2. Enable voice-piper-tts
-# 3. Use from channel plugin via ctx.getTTS()
+# 3. Use from channel plugin via ctx.getExtension("tts")
 ```
 
 ### Test Cases
@@ -154,8 +155,8 @@ pnpm build
 ## Usage Example
 
 ```typescript
-// In a channel plugin
-const tts = ctx.getTTS();
+// In a channel plugin (plugin-types ≥ 0.7)
+const tts = ctx.getExtension("tts");
 
 const result = await tts.synthesize("Hello from WOPR!", {
   voice: "en_US-lessac-medium",
