@@ -104,7 +104,7 @@ const piperPlugin: WOPRPlugin = {
 		}
 
 		// Register TTS provider
-		ctx.registerTTSProvider(provider);
+		ctx.registerProvider(provider);
 		// Register via extension API for channel plugins consuming via getExtension("tts")
 		ctx.registerExtension("tts", provider);
 		cleanups.push(() => {
