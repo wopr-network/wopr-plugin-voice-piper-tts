@@ -1,6 +1,6 @@
 {
 	"dependencies": {
-		"@wopr-network/plugin-types": "^0.2.1",
+		"@wopr-network/plugin-types": "^0.7.0",
 		"dockerode": "^4.0.0"
 	},
 	"description": "Local Piper TTS provider using Piper in Docker",
