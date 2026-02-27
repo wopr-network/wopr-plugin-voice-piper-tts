@@ -72,7 +72,6 @@ const manifest = {
 				type: "tts",
 				id: "piper-tts",
 				displayName: "Piper TTS (Local Docker)",
-				tier: "wopr" as const,
 				configSchema,
 			},
 		],
@@ -103,8 +102,15 @@ const piperPlugin: WOPRPlugin = {
 			return;
 		}
 
-		// Register TTS provider
-		ctx.registerTTSProvider(provider);
+		// Register TTS capability provider in the capability registry
+		ctx.registerCapabilityProvider("tts", {
+			id: "piper-tts",
+			name: "Piper TTS (Local Docker)",
+			configSchema,
+		});
+		cleanups.push(() => {
+			ctx?.unregisterCapabilityProvider?.("tts", "piper-tts");
+		});
 		// Register via extension API for channel plugins consuming via getExtension("tts")
 		ctx.registerExtension("tts", provider);
 		cleanups.push(() => {
