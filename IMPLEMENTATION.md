@@ -89,7 +89,8 @@ const plugin: WOPRPlugin = {
     const config = ctx.getConfig<PiperTTSConfig>();
     provider = new PiperTTSProvider(config);
     provider.validateConfig();
-    ctx.registerTTSProvider(provider); // ← Key registration
+    ctx.registerProvider(provider); // ← Key registration (plugin-types ≥ 0.7)
+    ctx.registerExtension("tts", provider); // ← For ctx.getExtension("tts") consumers
   },
 
   async shutdown() {
