@@ -1,10 +1,18 @@
+# ⚠️ This package has moved
+
+This package is now maintained in the [wopr-plugins monorepo](https://github.com/wopr-network/wopr-plugins/tree/main/packages/plugin-voice-piper-tts).
+
+This repository is archived and no longer accepts contributions.
+
+---
+
 # WOPR Plugin: Piper Local TTS
 
 Local text-to-speech provider using [Piper](https://github.com/rhasspy/piper) running in Docker.
 
 ## Features
 
-- **100% Local**: No API calls, runs entirely on your machine
+- **1000cal**: No API calls, runs entirely on your machine
 - **Docker-based**: Auto-manages Piper container lifecycle
 - **Voice Selection**: 10+ voices across multiple languages
 - **Speed Control**: Adjust speech rate (0.5x - 2.0x)
@@ -204,7 +212,7 @@ Error: Invalid WAV file: missing RIFF/WAVE headers
 | Feature | Piper Local | Cloud TTS (OpenAI/ElevenLabs) |
 |---------|-------------|-------------------------------|
 | Cost | Free | Pay per character |
-| Privacy | 100% local | Sends text to cloud |
+| Privacy | 1000cal | Sends text to cloud |
 | Latency | 1-2s | 0.5-1s (network dependent) |
 | Quality | Good | Excellent |
 | Voices | 100+ | 10-50 |
